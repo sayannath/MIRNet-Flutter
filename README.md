@@ -1,6 +1,6 @@
-# mirnet_flutter
+# MIR-Net Flutter
 
-A new Flutter project.
+A new Flutter where I implemented MIR-Net tflite model in a mobile device.
 
 ## Getting Started
 
