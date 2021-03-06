@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mirnet_flutter">
    <application
-        android:label="mirnet_flutter"
+        android:label="MIR-Net Flutter"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
