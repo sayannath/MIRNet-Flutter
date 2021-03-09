@@ -1,38 +1,25 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image/image.dart' as img;
 
 class Classifier {
   Interpreter _interpreter;
-  List<String> _labelList;
 
   Classifier() {
     _loadModel();
-    // _loadLabel();
   }
 
   void _loadModel() async {
-    _interpreter =
-        await Interpreter.fromAsset('model/lite-model_mirnet-fixed_integer_1.tflite');
+    _interpreter = await Interpreter.fromAsset(
+        'model/lite-model_mirnet-fixed_integer_1.tflite');
 
     var inputShape = _interpreter.getInputTensor(0).shape;
     var outputShape = _interpreter.getOutputTensor(0).shape;
     print(inputShape);
     print(outputShape);
     print('Load Model - $inputShape / $outputShape');
-  }
-
-  void _loadLabel() async {
-    final labelData = await rootBundle.loadString('assets/rps.txt');
-    final labelList = labelData.split('\n');
-    _labelList = labelList;
-    print(labelData);
-    print(labelList);
-    print('Load Label');
   }
 
   Future<img.Image> loadImage(String imagePath) async {
@@ -45,42 +32,23 @@ class Classifier {
   Future<dynamic> runModel(img.Image loadImage) async {
     var modelImage = img.copyResize(loadImage, width: 400, height: 400);
     var modelInput = imageToByteListFloat32(modelImage, 400);
-    print("Run Model");
-    print(modelInput.buffer);
-    print(modelInput.length);
-    print(modelInput.runtimeType);
-    print(modelInput);
-    var outputsForPrediction = List.generate(modelInput.length, (index) => 0.0);
+    // stylized_image 1 400 400 3
+    var outputsForPrediction = [
+      List.generate(
+        400,
+        (index) => List.generate(
+          400,
+          (index) => List.generate(3, (index) => 0.0),
+        ),
+      ),
+    ];
     print("Before $outputsForPrediction");
     _interpreter.run(modelInput.buffer, outputsForPrediction);
     print("After $outputsForPrediction");
-    print("After ${outputsForPrediction.runtimeType}");
-    List<dynamic> result = [];
-    // for (var i = 0; i < 3; i++) {
-    //   result.add({
-    //     'label': _labelList[sortedKeys[i]],
-    //     'value': map[sortedKeys[i]],
-    //   });
-    // }
-    // print("Result $result");
-    return result;
+    var outputImage = _convertArrayToImage(outputsForPrediction, 400);
+    print(outputImage.runtimeType);
+    return outputImage;
   }
-
-  // Uint8List imageToByteListUint8(img.Image image, int inputSize) {
-  //   var convertedBytes = Uint8List(1 * inputSize * inputSize * 3);
-  //   var buffer = Uint8List.view(convertedBytes.buffer);
-  //
-  //   int pixelIndex = 0;
-  //   for (var i = 0; i < inputSize; i++) {
-  //     for (var j = 0; j < inputSize; j++) {
-  //       var pixel = image.getPixel(i, j);
-  //       buffer[pixelIndex++] = img.getRed(pixel);
-  //       buffer[pixelIndex++] = img.getGreen(pixel);
-  //       buffer[pixelIndex++] = img.getBlue(pixel);
-  //     }
-  //   }
-  //   return convertedBytes.buffer.asUint8List();
-  // }
 
   Float32List imageToByteListFloat32(img.Image image, int inputSize) {
     var convertedBytes = Float32List(1 * inputSize * inputSize * 3);
@@ -97,5 +65,19 @@ class Classifier {
       }
     }
     return convertedBytes.buffer.asFloat32List();
+  }
+
+  img.Image _convertArrayToImage(
+      List<List<List<List<double>>>> imageArray, int inputSize) {
+    img.Image image = img.Image.rgb(inputSize, inputSize);
+    for (var x = 0; x < imageArray[0].length; x++) {
+      for (var y = 0; y < imageArray[0][0].length; y++) {
+        var r = (imageArray[0][x][y][0] * 255).toInt();
+        var g = (imageArray[0][x][y][1] * 255).toInt();
+        var b = (imageArray[0][x][y][2] * 255).toInt();
+        image.setPixelRgba(x, y, r, g, b);
+      }
+    }
+    return image;
   }
 }

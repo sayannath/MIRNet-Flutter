@@ -5,7 +5,6 @@ import 'package:path/path.dart';
 import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
 
-
 class ClassifierPage extends StatefulWidget {
   final CameraDescription camera;
 
@@ -100,17 +99,18 @@ class _ClassifierPageState extends State<ClassifierPage> {
     await _controller.takePicture(path);
     var loadImage = await _classifier.loadImage(path);
     var loadResult = await _classifier.runModel(loadImage);
-    // _showModalBottomSheet(context, loadImage, loadResult);
+    // await _classifier.runModel(loadImage).then((value) => showResult(context, value));
+    // _showModalBottomSheet(context, loadResult);
   }
 
-  void _showModalBottomSheet(context, loadImage, loadResult) {
+  void showResult(context,  loadResult) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
-      builder: (BuildContext bc) {
+      builder: (BuildContext context) {
         return Container(
           height: MediaQuery.of(context).size.height * 0.75,
           padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
@@ -119,55 +119,55 @@ class _ClassifierPageState extends State<ClassifierPage> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.memory(
-                  img.encodeJpg(loadImage),
-                  height: 300,
+                  img.encodeJpg(loadResult),
+                  height: 400,
                 ),
               ),
-              Expanded(
-                child: Container(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(10),
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  '${index + 1}. ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                                Flexible(
-                                  child: Text(
-                                    loadResult[index]['label'],
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              loadResult[index]['value'].toString(),
-                              style: TextStyle(
-                                color: Colors.orange,
-                                fontWeight: FontWeight.bold,
-                                fontSize: (20 - index).toDouble(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    itemCount: loadResult.length,
-                  ),
-                ),
-              )
+              // Expanded(
+              //   child: Container(
+              //     child: ListView.builder(
+              //       padding: const EdgeInsets.all(10),
+              //       itemBuilder: (context, index) {
+              //         return Padding(
+              //           padding: const EdgeInsets.only(bottom: 8.0),
+              //           child: Column(
+              //             children: [
+              //               Row(
+              //                 children: [
+              //                   Text(
+              //                     '${index + 1}. ',
+              //                     style: TextStyle(
+              //                       fontWeight: FontWeight.bold,
+              //                       fontSize: 20,
+              //                     ),
+              //                   ),
+              //                   // Flexible(
+              //                   //   child: Text(
+              //                   //     loadResult[index]['label'],
+              //                   //     style: TextStyle(
+              //                   //       fontWeight: FontWeight.bold,
+              //                   //       fontSize: 15,
+              //                   //     ),
+              //                   //   ),
+              //                   // ),
+              //                 ],
+              //               ),
+              //               // Text(
+              //               //   loadResult[index]['value'].toString(),
+              //               //   style: TextStyle(
+              //               //     color: Colors.orange,
+              //               //     fontWeight: FontWeight.bold,
+              //               //     fontSize: (20 - index).toDouble(),
+              //               //   ),
+              //               // ),
+              //             ],
+              //           ),
+              //         );
+              //       },
+              //       // itemCount: loadResult.length,
+              //     ),
+              //   ),
+              // )
             ],
           ),
         );
