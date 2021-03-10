@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:mirnet_flutter/classifier.dart';
+import 'package:mirnet_flutter/services/transfer.dart';
 import 'package:path/path.dart';
 import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
@@ -51,14 +51,12 @@ class _ClassifierPageState extends State<ClassifierPage> {
           ),
         ),
       ),
-      body:
-            FutureBuilder<void>(
+      body: FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return Column(
               children: [
-      
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.all(10),
@@ -78,8 +76,7 @@ class _ClassifierPageState extends State<ClassifierPage> {
                     icon: Icon(Icons.camera),
                   ),
                 ),
-                
-            _loading ?CircularProgressIndicator(): Container(),
+                _loading ? CircularProgressIndicator() : Container(),
               ],
             );
           } else {
@@ -88,12 +85,13 @@ class _ClassifierPageState extends State<ClassifierPage> {
             );
           }
         },
-        ),
+      ),
     );
   }
-bool _loading = false;
+
+  bool _loading = false;
   void _runModel(context) async {
-    setState((){
+    setState(() {
       _loading = true;
     });
     // try {
@@ -114,7 +112,6 @@ bool _loading = false;
       ),
       builder: (BuildContext context) {
         return Container(
-          // height: MediaQuery.of(context).size.height * 0.75,
           padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -128,57 +125,12 @@ bool _loading = false;
                   height: 400,
                 ),
               ),
-              // Expanded(
-              //   child: Container(
-              //     child: ListView.builder(
-              //       padding: const EdgeInsets.all(10),
-              //       itemBuilder: (context, index) {
-              //         return Padding(
-              //           padding: const EdgeInsets.only(bottom: 8.0),
-              //           child: Column(
-              //             children: [
-              //               Row(
-              //                 children: [
-              //                   Text(
-              //                     '${index + 1}. ',
-              //                     style: TextStyle(
-              //                       fontWeight: FontWeight.bold,
-              //                       fontSize: 20,
-              //                     ),
-              //                   ),
-              //                   // Flexible(
-              //                   //   child: Text(
-              //                   //     loadResult[index]['label'],
-              //                   //     style: TextStyle(
-              //                   //       fontWeight: FontWeight.bold,
-              //                   //       fontSize: 15,
-              //                   //     ),
-              //                   //   ),
-              //                   // ),
-              //                 ],
-              //               ),
-              //               // Text(
-              //               //   loadResult[index]['value'].toString(),
-              //               //   style: TextStyle(
-              //               //     color: Colors.orange,
-              //               //     fontWeight: FontWeight.bold,
-              //               //     fontSize: (20 - index).toDouble(),
-              //               //   ),
-              //               // ),
-              //             ],
-              //           ),
-              //         );
-              //       },
-              //       // itemCount: loadResult.length,
-              //     ),
-              //   ),
-              // )
             ],
           ),
         );
       },
-    );  
-    setState((){
+    );
+    setState(() {
       _loading = false;
     });
   }
