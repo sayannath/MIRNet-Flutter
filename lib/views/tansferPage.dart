@@ -46,14 +46,12 @@ class _ClassifierPageState extends State<ClassifierPage> {
         elevation: 0.0,
         title: Text(
           'MIR-Net TF Lite',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold
-          ),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
             child: Image.asset('assets/images/tf-logo.jpg'),
           )
         ],
@@ -129,9 +127,12 @@ class _ClassifierPageState extends State<ClassifierPage> {
               SizedBox(height: 16),
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Image.memory(
-                  img.encodeJpg(loadResult),
-                  height: 400,
+                child: RotatedBox(
+                  quarterTurns: 1,
+                  child: Image.memory(
+                    img.encodeJpg(loadResult),
+                    height: 400,
+                  ),
                 ),
               ),
             ],
