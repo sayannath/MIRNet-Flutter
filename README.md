@@ -32,7 +32,7 @@ This flutter app is used to enhance low light images.
 
 2 directories, 3 files
 ```
-## Reference Taken
+## Acknowedgement
 Reference Paper: https://arxiv.org/pdf/2003.06792v2.pdf<br>
 Reference Repositry Link: https://github.com/soumik12345/MIRNet/<br>
 Reference Repositry Link: https://github.com/sayakpaul/MIRNet-TFLite-TRT/
