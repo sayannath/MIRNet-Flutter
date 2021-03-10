@@ -51,12 +51,14 @@ class _ClassifierPageState extends State<ClassifierPage> {
           ),
         ),
       ),
-      body: FutureBuilder<void>(
+      body:
+            FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return Column(
               children: [
+      
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.all(10),
@@ -76,6 +78,8 @@ class _ClassifierPageState extends State<ClassifierPage> {
                     icon: Icon(Icons.camera),
                   ),
                 ),
+                
+            _loading ?CircularProgressIndicator(): Container(),
               ],
             );
           } else {
@@ -84,11 +88,14 @@ class _ClassifierPageState extends State<ClassifierPage> {
             );
           }
         },
-      ),
+        ),
     );
   }
-
+bool _loading = false;
   void _runModel(context) async {
+    setState((){
+      _loading = true;
+    });
     // try {
     await _initializeControllerFuture;
     final path = join(
@@ -99,12 +106,7 @@ class _ClassifierPageState extends State<ClassifierPage> {
     await _controller.takePicture(path);
     var loadImage = await _classifier.loadImage(path);
     var loadResult = await _classifier.runModel(loadImage);
-    // await _classifier.runModel(loadImage).then((value) => showResult(context, value));
-    // _showModalBottomSheet(context, loadResult);
-  }
-
-  void showResult(context,  loadResult) {
-    showModalBottomSheet(
+    showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
@@ -112,10 +114,11 @@ class _ClassifierPageState extends State<ClassifierPage> {
       ),
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height * 0.75,
-          padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
+          // height: MediaQuery.of(context).size.height * 0.75,
+          padding: const EdgeInsets.all(24),
           child: Column(
             children: [
+              Text("Enhanced Image"),
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.memory(
@@ -172,6 +175,9 @@ class _ClassifierPageState extends State<ClassifierPage> {
           ),
         );
       },
-    );
+    );  
+    setState((){
+      _loading = false;
+    });
   }
 }
