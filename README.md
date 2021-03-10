@@ -10,12 +10,16 @@ This flutter app is used to enhance low light images.
 >https://tfhub.dev/sayakpaul/lite-model/mirnet-fixed/dr/1<br>
 >Used TFLite (mirnet-fixed/integer)
 
+> My Repo: https://github.com/sayannath/Low-Light-Image-Enhancement
+
 ## Screenshots
-<img height=400 width=200 src="screenshots/splash-screen.jpg">
-<img height=400 width=200 src="screenshots/one.jpg">
-<img height=400 width=200 src="screenshots/two.jpg">
-<img height=400 width=200 src="screenshots/three.jpg">
-<img height=400 width=200 src="screenshots/four.jpg">
+<p>
+    <img height=400 width=200 src="screenshots/splash-screen.jpg"><br>
+    <img height=400 width=200 src="screenshots/one.jpg">
+    <img height=400 width=200 src="screenshots/two.jpg"><br>
+    <img height=400 width=200 src="screenshots/three.jpg">
+    <img height=400 width=200 src="screenshots/four.jpg">
+</p>
 
 ## Project Structure
 ```
@@ -28,6 +32,10 @@ This flutter app is used to enhance low light images.
 
 2 directories, 3 files
 ```
+## Reference Taken
+Reference Paper: https://arxiv.org/pdf/2003.06792v2.pdf<br>
+Reference Repositry Link: https://github.com/soumik12345/MIRNet/<br>
+Reference Repositry Link: https://github.com/sayakpaul/MIRNet-TFLite-TRT/
 
 ## Pull Request
 
@@ -44,9 +52,3 @@ Pull Requests are welcome. Please follow these rules for the ease of understandi
 [🧳 LinkedIn](https://www.linkedin.com/in/sayan-nath-15a989182/)
 
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://github.com/sayannath)
-
-<div align="center">
-
-  ### Show some ❤️ by starring some of the repositories!
-  
-</div>
