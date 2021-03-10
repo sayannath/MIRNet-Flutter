@@ -117,8 +117,10 @@ bool _loading = false;
           // height: MediaQuery.of(context).size.height * 0.75,
           padding: const EdgeInsets.all(24),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text("Enhanced Image"),
+              SizedBox(height: 16),
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.memory(
