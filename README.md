@@ -16,7 +16,7 @@ This flutter app is used to enhance low light images.
 <p>
     <img height=400 width=200 src="screenshots/splash-screen.jpg"><br>
     <img height=400 width=200 src="screenshots/one.jpg">
-    <img height=400 width=200 src="screenshots/two.jpg">
+    <img height=400 width=200 src="screenshots/two.jpg"><br>
     <img height=400 width=200 src="screenshots/three.jpg">
     <img height=400 width=200 src="screenshots/four.jpg">
 </p>
