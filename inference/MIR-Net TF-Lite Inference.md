@@ -52,9 +52,3 @@ print("Output Type:", output_details[0]['dtype'])
     Input Type: <class 'numpy.float32'>
     Output Shape: [  1 400 400   3]
     Output Type: <class 'numpy.float32'>
-    
-
-
-```python
-
-```
