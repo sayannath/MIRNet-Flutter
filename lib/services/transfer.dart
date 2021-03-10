@@ -4,10 +4,10 @@ import 'dart:typed_data';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image/image.dart' as img;
 
-class Classifier {
+class Transfer {
   Interpreter _interpreter;
 
-  Classifier() {
+  Transfer() {
     _loadModel();
   }
 
@@ -17,8 +17,6 @@ class Classifier {
 
     var inputShape = _interpreter.getInputTensor(0).shape;
     var outputShape = _interpreter.getOutputTensor(0).shape;
-    print(inputShape);
-    print(outputShape);
     print('Load Model - $inputShape / $outputShape');
   }
 
@@ -42,14 +40,12 @@ class Classifier {
         ),
       ),
     ];
-    print("Before $outputsForPrediction");
     _interpreter.run(modelInput.buffer, outputsForPrediction);
-    print("After $outputsForPrediction");
     var outputImage = _convertArrayToImage(outputsForPrediction, 400);
-    print(outputImage.runtimeType);
     return outputImage;
   }
 
+  //Convert Image to Float32
   Float32List imageToByteListFloat32(img.Image image, int inputSize) {
     var convertedBytes = Float32List(1 * inputSize * inputSize * 3);
     var buffer = Float32List.view(convertedBytes.buffer);
@@ -67,6 +63,7 @@ class Classifier {
     return convertedBytes.buffer.asFloat32List();
   }
 
+  //Conversion array to Image
   img.Image _convertArrayToImage(
       List<List<List<List<double>>>> imageArray, int inputSize) {
     img.Image image = img.Image.rgb(inputSize, inputSize);

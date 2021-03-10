@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:mirnet_flutter/views/classifierPage.dart';
-
+import 'package:animated_splash/animated_splash.dart';
+import 'package:mirnet_flutter/views/tansferPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,8 +24,13 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.orange,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: ClassifierPage(
-          camera: camera,
+        home: AnimatedSplash(
+          imagePath: 'assets/images/splashscreen.png',
+          home: ClassifierPage(
+            camera: camera,
+          ),
+          duration: 3000,
+          type: AnimatedSplashType.StaticDuration,
         ));
   }
 }

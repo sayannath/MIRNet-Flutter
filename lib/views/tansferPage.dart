@@ -15,14 +15,14 @@ class ClassifierPage extends StatefulWidget {
 }
 
 class _ClassifierPageState extends State<ClassifierPage> {
-  Classifier _classifier;
+  Transfer transfer;
   CameraController _controller;
   Future<void> _initializeControllerFuture;
 
   @override
   void initState() {
     super.initState();
-    _classifier = Classifier();
+    transfer = Transfer();
     _controller = CameraController(
       widget.camera,
       ResolutionPreset.medium,
@@ -48,8 +48,15 @@ class _ClassifierPageState extends State<ClassifierPage> {
           'MIR-Net TF Lite',
           style: TextStyle(
             color: Colors.black,
+            fontWeight: FontWeight.bold
           ),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+            child: Image.asset('assets/images/tf-logo.jpg'),
+          )
+        ],
       ),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
@@ -94,7 +101,6 @@ class _ClassifierPageState extends State<ClassifierPage> {
     setState(() {
       _loading = true;
     });
-    // try {
     await _initializeControllerFuture;
     final path = join(
       (await getTemporaryDirectory()).path,
@@ -102,8 +108,8 @@ class _ClassifierPageState extends State<ClassifierPage> {
     );
 
     await _controller.takePicture(path);
-    var loadImage = await _classifier.loadImage(path);
-    var loadResult = await _classifier.runModel(loadImage);
+    var loadImage = await transfer.loadImage(path);
+    var loadResult = await transfer.runModel(loadImage);
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
@@ -116,7 +122,10 @@ class _ClassifierPageState extends State<ClassifierPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("Enhanced Image"),
+              Text(
+                "Enhanced Image",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
               SizedBox(height: 16),
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
