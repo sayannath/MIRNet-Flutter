@@ -1,5 +1,7 @@
 # MIRNet Flutter
 
+<img src="screenshots/git_dashes.png">
+
 #### MIRNet model is used to enhance a low-light image. Implemented MIRNet TF-Lite Model with Flutter App.
 
 ## Description
@@ -46,12 +48,11 @@ Pull Requests are welcome. Please follow these rules for the ease of understandi
 
 ## Developed & Maintained by
 
-[👨 Sayan Nath](https://sayan-nath.web.app/)
-[📷 Insta](https://www.instagram.com/sayannath235/)
-[🐤 Twitter](https://twitter.com/SayanNa20204009)
-[🧳 LinkedIn](https://www.linkedin.com/in/sayan-nath-15a989182/)
+[👨 Sayan Nath](https://sayannath.biz/)
+
 
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://github.com/sayannath)
+
 <div align="center">
   
 #### Show some ❤️ by starring some of the repositories!
