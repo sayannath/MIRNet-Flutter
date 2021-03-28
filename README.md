@@ -1,3 +1,8 @@
+![GitHub forks](https://img.shields.io/github/forks/sayannath/MIRNet-Flutter?style=for-the-badge)
+![GitHub Repo stars](https://img.shields.io/github/stars/sayannath/MIRNet-Flutter?style=for-the-badge)
+![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/sayannath/MIRNet-Flutter?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/sayannath/MIRNet-Flutter?style=for-the-badge)
+![Twitter Follow](https://img.shields.io/twitter/follow/SayanNa20204009?style=for-the-badge)
 # MIRNet Flutter
 
 <img src="screenshots/git_dashes.png">
