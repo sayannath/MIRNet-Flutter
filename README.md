@@ -17,11 +17,9 @@
 
 This flutter app is used to enhance low light images.
 
-## TF-Hub
->https://tfhub.dev/sayakpaul/lite-model/mirnet-fixed/dr/1<br>
->Used TFLite (mirnet-fixed/integer)
-
-> My Repo: https://github.com/sayannath/Low-Light-Image-Enhancement
+## Links
+* Tensorflow Hub: [Link](https://tfhub.dev/sayakpaul/lite-model/mirnet-fixed/dr/1)     [Used TFLite (mirnet-fixed/integer)]<br>
+* My Inference Notebook: [Link]( https://github.com/sayannath/Low-Light-Image-Enhancement)
 
 ## Screenshots
 <p>
@@ -47,6 +45,17 @@ This flutter app is used to enhance low light images.
 Reference Paper: https://arxiv.org/pdf/2003.06792v2.pdf<br>
 Reference Repositry Link: https://github.com/soumik12345/MIRNet/<br>
 Reference Repositry Link: https://github.com/sayakpaul/MIRNet-TFLite-TRT/
+
+## How to run
+```
+1. Open your terminal
+2. Copy the command 'git clone https://github.com/sayannath/MIRNet-Flutter.git'
+3. cd MIRNet-Flutter
+4. flutter pub get [Make sure Flutter is installed]
+5. flutter run
+```
+## Want to Install Flutter?
+[Click Here](https://flutter.dev/docs/get-started/install)
 
 ## Pull Request
 
