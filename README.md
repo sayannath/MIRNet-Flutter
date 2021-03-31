@@ -8,14 +8,13 @@
 </a>
 
 # MIRNet Flutter
-
 <img src="screenshots/git_dashes.png">
 
 #### MIRNet model is used to enhance a low-light image. Implemented MIRNet TF-Lite Model with Flutter App.
 
 ## Description
 
-This flutter app is used to enhance low light images.
+This flutter app is used to enhance low light images with the help of TF-Lite.
 
 ## Links
 * Tensorflow Hub: [Link](https://tfhub.dev/sayakpaul/lite-model/mirnet-fixed/dr/1)     [Used TFLite (mirnet-fixed/integer)]<br>
