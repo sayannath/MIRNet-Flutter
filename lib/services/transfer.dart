@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
-
+import 'package:mirnet_flutter/config.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image/image.dart' as img;
 
@@ -12,8 +12,28 @@ class Transfer {
   }
 
   void _loadModel() async {
-    _interpreter = await Interpreter.fromAsset(
-        'model/lite-model_mirnet-fixed_integer_1.tflite');
+    var interpreterOptions;
+    if (Platform.isAndroid) {
+      // Android GpuDelegateV2
+      final gpuDelegateV2 = GpuDelegateV2(
+          options: GpuDelegateOptionsV2(
+        false,
+        TfLiteGpuInferenceUsage.fastSingleAnswer,
+        TfLiteGpuInferencePriority.minLatency,
+        TfLiteGpuInferencePriority.auto,
+        TfLiteGpuInferencePriority.auto,
+      ));
+
+      interpreterOptions = InterpreterOptions()..addDelegate(gpuDelegateV2);
+    } else if (Platform.isIOS) {
+      // iOS Metal Delegate (GpuDelegate)
+      final gpuDelegate = GpuDelegate(
+        options: GpuDelegateOptions(true, TFLGpuDelegateWaitType.active),
+      );
+      interpreterOptions = InterpreterOptions()..addDelegate(gpuDelegate);
+    }
+    _interpreter = await Interpreter.fromAsset(Config.tflite_model,
+        options: interpreterOptions);
 
     var inputShape = _interpreter.getInputTensor(0).shape;
     var outputShape = _interpreter.getOutputTensor(0).shape;
@@ -30,7 +50,7 @@ class Transfer {
   Future<dynamic> runModel(img.Image loadImage) async {
     var modelImage = img.copyResize(loadImage, width: 400, height: 400);
     var modelInput = imageToByteListFloat32(modelImage, 400);
-    // stylized_image 1 400 400 3
+    // bright_image 1 400 400 3
     var outputsForPrediction = [
       List.generate(
         400,
